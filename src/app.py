@@ -38,6 +38,51 @@ activities = {
       "schedule": "Segundas, quartas e sextas, 14h - 15h",
       "max_participants": 30,
       "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+   },
+   "Culinária Italiana": {
+      "description": "Aprenda receitas clássicas da culinária italiana e técnicas de cozinha",
+      "schedule": "Quartas, 16h - 17h30",
+      "max_participants": 19,
+      "participants": []
+   },
+   # Esportivas
+   "Futebol": {
+      "description": "Treinos e partidas de futebol para todos os níveis",
+      "schedule": "Sábados, 10h - 12h",
+      "max_participants": 22,
+      "participants": []
+   },
+   "Vôlei": {
+      "description": "Aprenda técnicas de vôlei e participe de campeonatos",
+      "schedule": "Terças e quintas, 17h - 18h",
+      "max_participants": 14,
+      "participants": []
+   },
+   # Artísticas
+   "Teatro": {
+      "description": "Oficina de teatro e expressão corporal",
+      "schedule": "Quartas, 15h - 16h30",
+      "max_participants": 16,
+      "participants": []
+   },
+   "Pintura": {
+      "description": "Aulas de pintura em tela e técnicas artísticas",
+      "schedule": "Segundas, 16h - 17h30",
+      "max_participants": 12,
+      "participants": []
+   },
+   # Intelectuais
+   "Clube de Leitura": {
+      "description": "Discussão de livros e incentivo à leitura",
+      "schedule": "Sextas, 14h - 15h",
+      "max_participants": 15,
+      "participants": []
+   },
+   "Olimpíada de Matemática": {
+      "description": "Preparação para olimpíadas e desafios matemáticos",
+      "schedule": "Segundas e quartas, 15h - 16h",
+      "max_participants": 18,
+      "participants": []
    }
 }
 
@@ -62,6 +107,9 @@ def signup_for_activity(activity_name: str, email: str):
     # Get the specificy activity
     activity = activities[activity_name]
 
+    # Validar se o estudante já está inscrito
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail="Estudante já inscrito nesta atividade")
     # Add student
     activity["participants"].append(email)
     return {"message": f"{email} inscrito(a) em {activity_name} com sucesso"}
